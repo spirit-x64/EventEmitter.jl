@@ -2,6 +2,7 @@ module EventEmitter
 
 # exports
 export Listener, Event,
+    emit!,
     listenercount, getlisteners
 
 # Types
@@ -25,6 +26,22 @@ struct Event
 end
 
 # Functions
+function emit!(e::Event, args::Any...)
+    results::Vector{Any} = []
+    todelete::Vector{Bool} = []
+    for l ∈ e.listeners
+        try
+            push!(results, l(args...))
+            push!(todelete, l.once)
+        catch exc
+            push!(results, exc)
+            push!(todelete, false)
+        end
+    end
+    deleteat!(e.listeners, todelete)
+    return results
+end
+
 listenercount(e::Event; once::Bool) = length(filter((l::Listener) -> l.once === once, e.listeners))
 listenercount(e::Event) = length(e.listeners)
 

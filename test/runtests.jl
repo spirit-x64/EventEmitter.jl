@@ -17,4 +17,8 @@ using Test
     @test all(l.once === false for l ∈ getlisteners(event2; once=false))
     @test isa(getlisteners(event2), Vector{Listener})
     @test isa(event3, Event)
+    @test emit!(event1) == [3]
+    @test emit!(event2) == [4]
+    @test emit!(event2) == []
+    @test emit!(event3) == []
 end
