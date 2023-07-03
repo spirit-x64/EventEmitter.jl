@@ -4,7 +4,7 @@ module EventEmitter
 export Listener, Event,
     addlisteners!, prependlisteners!, removelistener!, removealllisteners!,
     on!, once!, off!, emit!,
-    listenercount, getlisteners
+    eventnames, listenercount, getlisteners
 
 # Types
 struct Listener
@@ -74,6 +74,9 @@ end
 emit!(cb::Function, e::Event, args::Any...) = cb(emit!(e, args...)...)
 emit!(arr::AbstractArray{Event}, args::Any...) = [e() for e in arr]
 emit!(arr::AbstractArray, args::Any...) = [isa(i, Event) ? i() : i for i in arr]
+
+eventnames(arr::AbstractArray{Event}) = [e.name for e in arr]
+eventnames(arr::AbstractArray) = [isa(i, Event) ? i.name : i for i in arr]
 
 listenercount(e::Event; once::Bool) = length(filter((l::Listener) -> l.once === once, e.listeners))
 listenercount(e::Event) = length(e.listeners)

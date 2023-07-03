@@ -47,4 +47,6 @@ using Test
     @test emit!(arr1) == [[10], []]
     @test emit!(arr2) == [0, [12], [13]]
     @test emit!(arr2) == [0, [12], []]
+    @test eventnames(arr1) == [:event4, :event5]
+    @test eventnames(arr2) == [0, :event6, :event7]
 end
