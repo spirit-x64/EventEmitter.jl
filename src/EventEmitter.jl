@@ -74,6 +74,8 @@ end
 emit!(cb::Function, e::Event, args::Any...) = cb(emit!(e, args...)...)
 emit!(arr::AbstractArray{Event}, args::Any...) = [e() for e in arr]
 emit!(arr::AbstractArray, args::Any...) = [isa(i, Event) ? i() : i for i in arr]
+emit!(t::Tuple{Vararg{Event}}, args::Any...) = Tuple(e() for e in t)
+emit!(t::Tuple, args::Any...) = Tuple(isa(i, Event) ? i() : i for i in t)
 
 eventnames(arr::AbstractArray{Event}) = [e.name for e in arr]
 eventnames(arr::AbstractArray) = [isa(i, Event) ? i.name : i for i in arr]

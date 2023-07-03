@@ -49,4 +49,11 @@ using Test
     @test emit!(arr2) == [0, [12], []]
     @test eventnames(arr1) == [:event4, :event5]
     @test eventnames(arr2) == [0, :event6, :event7]
+
+    t1 = (Event(:event8, () -> 14), Event(:event9, () -> 15; once=true))
+    t2 = (0, Event(:event10, () -> 16), Event(:event11, () -> 17; once=true))
+    @test emit!(t1) == ([14], [15])
+    @test emit!(t1) == ([14], [])
+    @test emit!(t2) == (0, [16], [17])
+    @test emit!(t2) == (0, [16], [])
 end
