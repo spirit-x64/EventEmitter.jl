@@ -1,0 +1,13 @@
+name = "EventEmitter"
+uuid = "eed75e0f-2a47-456c-84f6-69ee3fe4bbf9"
+authors = ["Spirit <i8bou3@gmail.com>"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

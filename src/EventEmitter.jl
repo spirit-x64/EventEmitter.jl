@@ -1,0 +1,3 @@
+module EventEmitter
+
+end # module
