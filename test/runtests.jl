@@ -10,7 +10,11 @@ using Test
     event1 = Event(:event1, () -> 3; once=false)
     event2 = Event(:event2, Listener(() -> 4, true))
     event3 = Event(:event3)
-    @test isa(event1, Event)
-    @test isa(event2, Event)
+    @test listenercount(event1) === 1
+    @test listenercount(event2; once=true) === 1
+    @test listenercount(event2; once=false) === 0
+    @test all(l.once === true for l ∈ getlisteners(event1; once=true))
+    @test all(l.once === false for l ∈ getlisteners(event2; once=false))
+    @test isa(getlisteners(event2), Vector{Listener})
     @test isa(event3, Event)
 end

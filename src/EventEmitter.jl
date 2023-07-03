@@ -1,7 +1,8 @@
 module EventEmitter
 
 # exports
-export Listener, Event
+export Listener, Event,
+    listenercount, getlisteners
 
 # Types
 struct Listener
@@ -22,5 +23,12 @@ struct Event
     Event(n::Union{Symbol,AbstractString}, l::Listener...) = new(n, [l...])
     Event(n::Union{Symbol,AbstractString}) = new(n, [])
 end
+
+# Functions
+listenercount(e::Event; once::Bool) = length(filter((l::Listener) -> l.once === once, e.listeners))
+listenercount(e::Event) = length(e.listeners)
+
+getlisteners(e::Event; once::Bool) = filter((l::Listener) -> l.once === once, e.listeners)
+getlisteners(e::Event) = e.listeners
 
 end # module
