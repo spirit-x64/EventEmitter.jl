@@ -9,6 +9,7 @@ struct Listener
     once::Bool
 
     Listener(cb::Function, once::Bool=false) = new(cb, once)
+    (l::Listener)(args...) = l.callback(args...)
 end
 
 struct Event
