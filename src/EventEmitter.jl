@@ -3,7 +3,7 @@ module EventEmitter
 # exports
 export Listener, Event,
     addlisteners!, prependlisteners!, removelistener!, removealllisteners!,
-    emit!,
+    on!, once!, off!, emit!,
     listenercount, getlisteners
 
 # Types
@@ -46,6 +46,13 @@ function removealllisteners!(e::Event; once::Bool)
     deleteat!(e.listeners, [l.once === once for l ∈ e.listeners])
 end
 removealllisteners!(e::Event) = empty!(e.listeners)
+
+on!(e::Event, cbs::Function...) = addlisteners!(e, cbs...; once=false)
+
+once!(e::Event, cbs::Function...) = addlisteners!(e, cbs...; once=true)
+
+off!(e::Event, i::Int) = removelistener!(e, i)
+off!(e::Event) = removelistener!(e)
 
 function emit!(e::Event, args::Any...)
     results::Vector{Any} = []
