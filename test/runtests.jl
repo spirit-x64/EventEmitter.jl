@@ -40,4 +40,11 @@ using Test
     @test event2() == [4]
     @test event2() == []
     @test emit!(event3) == []
+
+    arr1 = [Event(:event4, () -> 10), Event(:event5, () -> 11; once=true)]
+    arr2 = [0, Event(:event6, () -> 12), Event(:event7, () -> 13; once=true)]
+    @test emit!(arr1) == [[10], [11]]
+    @test emit!(arr1) == [[10], []]
+    @test emit!(arr2) == [0, [12], [13]]
+    @test emit!(arr2) == [0, [12], []]
 end

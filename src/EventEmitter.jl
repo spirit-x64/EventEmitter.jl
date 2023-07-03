@@ -72,6 +72,8 @@ function emit!(e::Event, args::Any...)
     return results
 end
 emit!(cb::Function, e::Event, args::Any...) = cb(emit!(e, args...)...)
+emit!(arr::AbstractArray{Event}, args::Any...) = [e() for e in arr]
+emit!(arr::AbstractArray, args::Any...) = [isa(i, Event) ? i() : i for i in arr]
 
 listenercount(e::Event; once::Bool) = length(filter((l::Listener) -> l.once === once, e.listeners))
 listenercount(e::Event) = length(e.listeners)
