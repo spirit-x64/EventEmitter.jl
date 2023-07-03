@@ -41,6 +41,7 @@ function emit!(e::Event, args::Any...)
     deleteat!(e.listeners, todelete)
     return results
 end
+emit!(cb::Function, e::Event, args::Any...) = cb(emit!(e, args...)...)
 
 listenercount(e::Event; once::Bool) = length(filter((l::Listener) -> l.once === once, e.listeners))
 listenercount(e::Event) = length(e.listeners)

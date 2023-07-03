@@ -18,6 +18,9 @@ using Test
     @test isa(getlisteners(event2), Vector{Listener})
     @test isa(event3, Event)
     @test emit!(event1) == [3]
+    emit!(event1) do result
+        @test result === 3
+    end
     @test emit!(event2) == [4]
     @test emit!(event2) == []
     @test emit!(event3) == []
