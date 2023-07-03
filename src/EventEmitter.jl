@@ -1,7 +1,7 @@
 module EventEmitter
 
 # exports
-export Listener, Event,
+export Listener, Event, NamedTuple,
     addlisteners!, prependlisteners!, removelistener!, removealllisteners!,
     on!, once!, off!, emit!,
     eventnames, listenercount, getlisteners
@@ -26,6 +26,8 @@ struct Event
     Event(n::Union{Symbol,AbstractString}) = new(n, [])
     (e::Event)(args::Any...) = emit!(e, args...)
 end
+
+Base.NamedTuple(events::Event...) = NamedTuple(zip((e.name for e in events), events))
 
 # Functions
 addlisteners!(e::Event, l::Listener...) = push!(e.listeners, l...)
