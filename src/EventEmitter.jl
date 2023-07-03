@@ -48,8 +48,10 @@ end
 removealllisteners!(e::Event) = empty!(e.listeners)
 
 on!(e::Event, cbs::Function...) = addlisteners!(e, cbs...; once=false)
+on!(cb::Function, e::Event) = addlisteners!(e, cb; once=false)
 
 once!(e::Event, cbs::Function...) = addlisteners!(e, cbs...; once=true)
+once!(cb::Function, e::Event) = addlisteners!(e, cb; once=true)
 
 off!(e::Event, i::Int) = removelistener!(e, i)
 off!(e::Event) = removelistener!(e)
