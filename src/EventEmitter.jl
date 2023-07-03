@@ -79,6 +79,8 @@ emit!(t::Tuple, args::Any...) = Tuple(isa(i, Event) ? i() : i for i in t)
 
 eventnames(arr::AbstractArray{Event}) = [e.name for e in arr]
 eventnames(arr::AbstractArray) = [isa(i, Event) ? i.name : i for i in arr]
+eventnames(t::Tuple{Vararg{Event}}) = Tuple(e.name for e in t)
+eventnames(t::Tuple) = Tuple(isa(i, Event) ? i.name : i for i in t)
 
 listenercount(e::Event; once::Bool) = length(filter((l::Listener) -> l.once === once, e.listeners))
 listenercount(e::Event) = length(e.listeners)

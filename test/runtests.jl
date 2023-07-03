@@ -56,4 +56,6 @@ using Test
     @test emit!(t1) == ([14], [])
     @test emit!(t2) == (0, [16], [17])
     @test emit!(t2) == (0, [16], [])
+    @test eventnames(t1) == (:event8, :event9)
+    @test eventnames(t2) == (0, :event10, :event11)
 end
