@@ -21,7 +21,7 @@ using Test
     emit!(event1) do result
         @test result === 3
     end
-    @test emit!(event2) == [4]
-    @test emit!(event2) == []
+    @test event2() == [4]
+    @test event2() == []
     @test emit!(event3) == []
 end

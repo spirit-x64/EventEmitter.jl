@@ -23,6 +23,7 @@ struct Event
     end
     Event(n::Union{Symbol,AbstractString}, l::Listener...) = new(n, [l...])
     Event(n::Union{Symbol,AbstractString}) = new(n, [])
+    (e::Event)(args::Any...) = emit!(e, args...)
 end
 
 # Functions
