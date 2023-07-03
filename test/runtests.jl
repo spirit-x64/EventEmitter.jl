@@ -21,11 +21,16 @@ using Test
     emit!(event1) do result
         @test result === 3
     end
+    @test length(addlisteners!(event1, () -> 5, () -> 6; once=false)) === 3
+    @test removelistener!(event1, 1)() === 3
+    @test removelistener!(event1)() === 6
+    @test emit!(event1) == [5]
+    @test length(prependlisteners!(event1, () -> 7; once=true)) === 2
+    removealllisteners!(event1; once=true)
+    @test emit!(event1) == [5]
+    removealllisteners!(event1)
+    @test emit!(event1) == []
     @test event2() == [4]
     @test event2() == []
     @test emit!(event3) == []
-    @test length(addlisteners!(event3, () -> 5; once=false)) === 1
-    @test length(prependlisteners!(event3, () -> 6; once=true)) === 2
-    @test emit!(event3) == [6, 5]
-    @test emit!(event3) == [5]
 end

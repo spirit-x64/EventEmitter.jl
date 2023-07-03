@@ -2,7 +2,7 @@ module EventEmitter
 
 # exports
 export Listener, Event,
-    addlisteners!, prependlisteners!,
+    addlisteners!, prependlisteners!, removelistener!, removealllisteners!,
     emit!,
     listenercount, getlisteners
 
@@ -37,6 +37,15 @@ prependlisteners!(e::Event, l::Listener...) = pushfirst!(e.listeners, l...)
 function prependlisteners!(e::Event, cbs::Function...; once::Bool)
     prependlisteners!(e, (Listener(cb, once) for cb ∈ cbs)...)
 end
+
+# use negative index to count back from the last element
+removelistener!(e::Event, i::Int) = popat!(e.listeners, i ≤ 0 ? i += length(e.listeners) : i)
+removelistener!(e::Event) = pop!(e.listeners)
+
+function removealllisteners!(e::Event; once::Bool)
+    deleteat!(e.listeners, [l.once === once for l ∈ e.listeners])
+end
+removealllisteners!(e::Event) = empty!(e.listeners)
 
 function emit!(e::Event, args::Any...)
     results::Vector{Any} = []
