@@ -24,4 +24,8 @@ using Test
     @test event2() == [4]
     @test event2() == []
     @test emit!(event3) == []
+    @test length(addlisteners!(event3, () -> 5; once=false)) === 1
+    @test length(prependlisteners!(event3, () -> 6; once=true)) === 2
+    @test emit!(event3) == [6, 5]
+    @test emit!(event3) == [5]
 end

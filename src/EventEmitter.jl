@@ -2,6 +2,7 @@ module EventEmitter
 
 # exports
 export Listener, Event,
+    addlisteners!, prependlisteners!,
     emit!,
     listenercount, getlisteners
 
@@ -27,6 +28,16 @@ struct Event
 end
 
 # Functions
+addlisteners!(e::Event, l::Listener...) = push!(e.listeners, l...)
+function addlisteners!(e::Event, cbs::Function...; once::Bool)
+    addlisteners!(e, (Listener(cb, once) for cb ∈ cbs)...)
+end
+
+prependlisteners!(e::Event, l::Listener...) = pushfirst!(e.listeners, l...)
+function prependlisteners!(e::Event, cbs::Function...; once::Bool)
+    prependlisteners!(e, (Listener(cb, once) for cb ∈ cbs)...)
+end
+
 function emit!(e::Event, args::Any...)
     results::Vector{Any} = []
     todelete::Vector{Bool} = []
