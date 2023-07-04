@@ -72,4 +72,6 @@ using Test
     @test emit!(dict1) == [[22], [21]]
     @test emit!(dict1) == [[], [21]]
     @test emit!(dict2) == [[], 0]
+    @test eventnames(dict1) == [:event16, :event15]
+    @test eventnames(dict2) == [:event17, 0]
 end
