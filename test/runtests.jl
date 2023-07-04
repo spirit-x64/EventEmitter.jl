@@ -59,6 +59,9 @@ using Test
     @test eventnames(t1) == (:event8, :event9)
     @test eventnames(t2) == (0, :event10, :event11)
 
-    nt = NamedTuple(Event(:event12, () -> 18), Event(:event13, () -> 19; once=true))
-    @test isa(nt, NamedTuple{(:event12, :event13), Tuple{Event, Event}})
+    nt1 = NamedTuple(Event(:event12, () -> 18), Event(:event13, () -> 19; once=true))
+    nt2 = (notevent=0, event14=Event(:event14, () -> 20))
+    @test emit!(nt1) == ([18], [19])
+    @test emit!(nt1) == ([18], [])
+    @test emit!(nt2) == (0, [20])
 end
