@@ -64,4 +64,6 @@ using Test
     @test emit!(nt1) == ([18], [19])
     @test emit!(nt1) == ([18], [])
     @test emit!(nt2) == (0, [20])
+    @test eventnames(nt1) == (:event12, :event13)
+    @test eventnames(nt2) == (0, :event14)
 end
