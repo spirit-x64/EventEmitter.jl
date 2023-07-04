@@ -66,4 +66,9 @@ using Test
     @test emit!(nt2) == (0, [20])
     @test eventnames(nt1) == (:event12, :event13)
     @test eventnames(nt2) == (0, :event14)
+
+    dict1 = Dict(Event(:event15, () -> 21), Event(:event16, () -> 22; once=true))
+    dict2 = Dict(0 => Event(:event17))
+    @test isa(dict1, Dict{Symbol, Event})
+    @test isa(dict2, Dict{<:Any, Event})
 end
