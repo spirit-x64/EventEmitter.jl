@@ -31,12 +31,12 @@ Base.Dict(events::Event...) = Dict(e.name => e for e in events)
 
 # Functions
 addlisteners!(e::Event, l::Listener...) = push!(e.listeners, l...)
-function addlisteners!(e::Event, cbs::Function...; once::Bool)
+function addlisteners!(e::Event, cbs::Function...; once::Bool=false)
     addlisteners!(e, (Listener(cb, once) for cb ∈ cbs)...)
 end
 
 prependlisteners!(e::Event, l::Listener...) = pushfirst!(e.listeners, l...)
-function prependlisteners!(e::Event, cbs::Function...; once::Bool)
+function prependlisteners!(e::Event, cbs::Function...; once::Bool=false)
     prependlisteners!(e, (Listener(cb, once) for cb ∈ cbs)...)
 end
 
