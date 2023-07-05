@@ -1,10 +1,9 @@
 module EventEmitter
 
 # exports
-export Listener, Event, NamedTuple, Dict,
+export Listener, Event, eventnames, listenercount, getlisteners,
     addlisteners!, prependlisteners!, removelistener!, removealllisteners!,
-    on!, once!, off!, emit!,
-    eventnames, listenercount, getlisteners
+    on!, once!, off!, emit!
 
 # Types
 struct Listener
@@ -41,7 +40,6 @@ function prependlisteners!(e::Event, cbs::Function...; once::Bool)
     prependlisteners!(e, (Listener(cb, once) for cb ∈ cbs)...)
 end
 
-# use negative index to count back from the last element
 removelistener!(e::Event, i::Int) = popat!(e.listeners, i ≤ 0 ? i += length(e.listeners) : i)
 removelistener!(e::Event) = pop!(e.listeners)
 
