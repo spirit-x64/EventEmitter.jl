@@ -14,15 +14,16 @@ struct Listener
     (l::Listener)(args...) = l.callback(args...)
 end
 
+EventName = Union{Symbol,AbstractString}
 struct Event
-    name::Union{Symbol,AbstractString}
+    name::EventName
     listeners::Vector{Listener}
 
-    function Event(n::Union{Symbol,AbstractString}, cbs::Function...; once::Bool=false)
+    function Event(n::EventName, cbs::Function...; once::Bool=false)
         new(n, [Listener(cb, once) for cb ∈ cbs])
     end
-    Event(n::Union{Symbol,AbstractString}, l::Listener...) = new(n, [l...])
-    Event(n::Union{Symbol,AbstractString}) = new(n, [])
+    Event(n::EventName, l::Listener...) = new(n, [l...])
+    Event(n::EventName) = new(n, [])
     (e::Event)(args::Any...) = emit!(e, args...)
 end
 
