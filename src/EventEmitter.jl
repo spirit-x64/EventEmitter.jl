@@ -1,11 +1,9 @@
 module EventEmitter
 
-# exports
 export Listener, Event, eventnames, listenercount, getlisteners,
     addlisteners!, prependlisteners!, removelistener!, removealllisteners!,
     on!, once!, off!, emit!
 
-# Types
 struct Listener
     callback::Function
     once::Bool
@@ -30,7 +28,6 @@ end
 Base.NamedTuple(events::Event...) = NamedTuple(zip((e.name for e in events), events))
 Base.Dict(events::Event...) = Dict(e.name => e for e in events)
 
-# Functions
 addlisteners!(e::Event, l::Listener...) = push!(e.listeners, l...)
 function addlisteners!(e::Event, cbs::Function...; once::Bool=false)
     addlisteners!(e, (Listener(cb, once) for cb ∈ cbs)...)
