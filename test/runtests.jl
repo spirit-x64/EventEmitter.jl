@@ -41,37 +41,37 @@ using Test
     @test event2() == []
     @test emit!(event3) == []
 
-    arr1 = [Event(:event4, () -> 10), Event(:event5, () -> 11; once=true)]
-    arr2 = [0, Event(:event6, () -> 12), Event(:event7, () -> 13; once=true)]
-    @test emit!(arr1) == [[10], [11]]
-    @test emit!(arr1) == [[10], []]
-    @test emit!(arr2) == [0, [12], [13]]
-    @test emit!(arr2) == [0, [12], []]
-    @test eventnames(arr1) == [:event4, :event5]
-    @test eventnames(arr2) == [0, :event6, :event7]
+    arr1 = [Event(:event1, () -> 1), Event(:event2, () -> 2; once=true)]
+    arr2 = [0, Event(:event3, () -> 3), Event(:event4, () -> 4; once=true)]
+    @test emit!(arr1) == [[1], [2]]
+    @test emit!(arr1) == [[1], []]
+    @test emit!(arr2) == [0, [3], [4]]
+    @test emit!(arr2) == [0, [3], []]
+    @test eventnames(arr1) == [:event1, :event2]
+    @test eventnames(arr2) == [0, :event3, :event4]
 
-    t1 = (Event(:event8, () -> 14), Event(:event9, () -> 15; once=true))
-    t2 = (0, Event(:event10, () -> 16), Event(:event11, () -> 17; once=true))
-    @test emit!(t1) == ([14], [15])
-    @test emit!(t1) == ([14], [])
-    @test emit!(t2) == (0, [16], [17])
-    @test emit!(t2) == (0, [16], [])
-    @test eventnames(t1) == (:event8, :event9)
-    @test eventnames(t2) == (0, :event10, :event11)
+    t1 = (Event(:event1, () -> 1), Event(:event2, () -> 2; once=true))
+    t2 = (0, Event(:event3, () -> 3), Event(:event4, () -> 4; once=true))
+    @test emit!(t1) == ([1], [2])
+    @test emit!(t1) == ([1], [])
+    @test emit!(t2) == (0, [3], [4])
+    @test emit!(t2) == (0, [3], [])
+    @test eventnames(t1) == (:event1, :event2)
+    @test eventnames(t2) == (0, :event3, :event4)
 
-    nt1 = NamedTuple(Event(:event12, () -> 18), Event(:event13, () -> 19; once=true))
-    nt2 = (notevent=0, event14=Event(:event14, () -> 20))
-    @test emit!(nt1) == ([18], [19])
-    @test emit!(nt1) == ([18], [])
-    @test emit!(nt2) == (0, [20])
-    @test eventnames(nt1) == (:event12, :event13)
-    @test eventnames(nt2) == (0, :event14)
+    nt1 = NamedTuple(Event(:event1, () -> 1), Event(:event2, () -> 2; once=true))
+    nt2 = (notevent=0, event3=Event(:event3, () -> 3))
+    @test emit!(nt1) == ([1], [2])
+    @test emit!(nt1) == ([1], [])
+    @test emit!(nt2) == (0, [3])
+    @test eventnames(nt1) == (:event1, :event2)
+    @test eventnames(nt2) == (0, :event3)
 
-    dict1 = Dict(Event(:event15, () -> 21), Event(:event16, () -> 22; once=true))
-    dict2 = Dict("a" => 0, "b" => Event(:event17))
-    @test emit!(dict1) == [[22], [21]]
-    @test emit!(dict1) == [[], [21]]
+    dict1 = Dict(Event(:event1, () -> 1), Event(:event2, () -> 2; once=true))
+    dict2 = Dict("a" => 0, "b" => Event(:event3))
+    @test emit!(dict1) == [[1], [2]]
+    @test emit!(dict1) == [[1], [],]
     @test emit!(dict2) == [[], 0]
-    @test eventnames(dict1) == [:event16, :event15]
-    @test eventnames(dict2) == [:event17, 0]
+    @test eventnames(dict1) == [:event1, :event2]
+    @test eventnames(dict2) == [:event3, 0]
 end
