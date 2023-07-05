@@ -86,7 +86,7 @@ eventnames(t::Tuple{Vararg{Event}}) = Tuple(e.name for e in t)
 eventnames(t::Tuple) = Tuple(isa(i, Event) ? i.name : i for i in t)
 eventnames(nt::NamedTuple{Symbol,<:Tuple{Vararg{Event}}}) = (keys(nt))
 eventnames(nt::NamedTuple) = Tuple(isa(i, Event) ? i.name : i for i in nt)
-eventnames(dict::AbstractDict{<:Union{Symbol,AbstractString},Event}) = [keys(dict)...]
+eventnames(dict::AbstractDict{<:EventName,Event}) = [keys(dict)...]
 eventnames(dict::AbstractDict) = [isa(e, Event) ? e.name : e for e in values(dict)]
 
 listenercount(e::Event; once::Bool) = length(filter((l::Listener) -> l.once === once, e.listeners))
