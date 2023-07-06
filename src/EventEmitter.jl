@@ -1,6 +1,6 @@
 module EventEmitter
 
-export Listener, Event, eventnames, listenercount, getlisteners,
+export Listener, Event, eventnames, listenercount, getlisteners, hasname,
     addlisteners!, prependlisteners!, removelistener!, removealllisteners!,
     on!, once!, off!, emit!
 
@@ -79,6 +79,8 @@ emit!(nt::NamedTuple{Symbol,<:Tuple{Vararg{Event}}}, args::Any...) = Tuple(e(arg
 emit!(nt::NamedTuple, args::Any...) = Tuple(isa(e, Event) ? e(args...) : e for e in nt)
 emit!(dict::AbstractDict{<:Any,Event}, args::Any...) = [e(args...) for e in values(dict)]
 emit!(dict::AbstractDict, args::Any...) = [isa(e, Event) ? e(args...) : e for e in values(dict)]
+
+hasname(e::Event) = !isnothing(e.name)
 
 eventnames(arr::AbstractArray{Event}) = [e.name for e in arr]
 eventnames(arr::AbstractArray) = [isa(i, Event) ? i.name : i for i in arr]

@@ -17,6 +17,7 @@ using Test
     @test listenercount(event2; once=true) === 1
     @test listenercount(event2; once=false) === 0
     for e ∈ (event1, event2, event3, event4, event5, event6)
+        @test any(e === i for i ∈ (event1, event3, event5)) ? hasname(e) : !hasname(e)
         @test isa(e, Event)
         @test isa(getlisteners(e), Vector{Listener})
         @test all(l.once === true for l ∈ getlisteners(e; once=true))
