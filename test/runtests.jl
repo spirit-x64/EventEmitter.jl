@@ -32,8 +32,8 @@ using Test
     @test event4() == []
     @test event5() == []
     @test event6() == []
-    emit!(event1) do result
-        @test result === 1
+    emit!(event1) do results
+        @test results == [1]
     end
     once!(event1) do
         5

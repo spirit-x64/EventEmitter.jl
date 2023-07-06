@@ -70,7 +70,7 @@ function emit!(e::Event, args::Any...)
     deleteat!(e.listeners, todelete)
     return results
 end
-emit!(cb::Function, e::Event, args::Any...) = cb(emit!(e, args...)...)
+emit!(cb::Function, e::Event, args::Any...) = cb(emit!(e, args...))
 emit!(arr::AbstractArray{Event}, args::Any...) = [e() for e in arr]
 emit!(arr::AbstractArray, args::Any...) = [isa(i, Event) ? i() : i for i in arr]
 emit!(t::Tuple{Vararg{Event}}, args::Any...) = Tuple(e() for e in t)
