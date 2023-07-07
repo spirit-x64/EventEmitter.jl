@@ -15,8 +15,8 @@
 
 ## Installation
 
-```console
-pkg> add EventEmitter
+```julia
+using Pkg; Pkg.add(url="https://github.com/8bou3/EventEmitter.jl")
 ```
 
 ## License
