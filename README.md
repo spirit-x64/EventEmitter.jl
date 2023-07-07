@@ -88,8 +88,19 @@ myevent() # [5, 2]
 ```
 Construct collections of `Event`s (arrays, tuples, named tuples and dictionaries)
 ```julia
-arr = [Event(), Event()]
-tuple = (Event(), Event())
-namedtuple = (a=Event(), b=Event())
-dict = Dict(:a => Event(), :b => Event())
+event1 = Event(() -> 1)
+event2 = Event(() -> 2)
+arr = [event1, event2]
+tuple = (event1, event2)
+namedtuple = (a=event1, b=event2)
+dict = Dict(:a => event1, :b => event2)
+```
+Emit the collections
+
+\*emitting a dict will give almost random order for the events\*
+```julia
+emit!(arr) # [[1], [2]]
+emit!(tuple) # [[1], [2]]
+emit!(namedtuple) # [[1], [2]]
+emit!(dict) # [[1], [2]]
 ```
