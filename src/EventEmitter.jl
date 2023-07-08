@@ -31,7 +31,12 @@ function prependlisteners!(e::Event, cbs::Function...; once::Bool=false)
     prependlisteners!(e, (Listener(cb, once) for cb ∈ cbs)...)
 end
 
-removelistener!(e::Event, i::Int) = popat!(e.listeners, i ≤ 0 ? i += length(e.listeners) : i)
+function removelistener!(e::Event, i::Int)
+    index = i ≤ 0 ? i += length(e.listeners) : i
+    listener = e.listeners[index]
+    deleteat!(e.listeners, index)
+    return listener
+end
 removelistener!(e::Event) = pop!(e.listeners)
 
 function removealllisteners!(e::Event; once::Bool)
