@@ -3,8 +3,16 @@ on:
   push:
     branches:
       - main
+    paths:
+      - src/**
+      - test/**
+      - Project.toml
     tags: ['*']
   pull_request:
+    paths:
+      - src/**
+      - test/**
+      - Project.toml
 concurrency:
   # Skip intermediate builds: always.
   # Cancel intermediate builds: only if it is a pull request build.
