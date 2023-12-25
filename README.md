@@ -1,3 +1,6 @@
+<!-- Markdown link & img dfn's -->
+[license]: LICENSE
+
 # EventEmitter
 > Events in julia
 
@@ -22,11 +25,6 @@ using Pkg; Pkg.add("EventEmitter")
 ## License
 
 All code licensed under the [MIT license][license].
-
-<!-- Markdown link & img dfn's -->
-[discord-url]: https://discord.gg/fsgRUpK
-[license]: LICENSE
-[example.env]: example.env
 
 ## Getting started
 First run
