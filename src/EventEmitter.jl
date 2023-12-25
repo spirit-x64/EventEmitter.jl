@@ -40,7 +40,7 @@ end
 removelistener!(e::Event) = pop!(e.listeners)
 
 function removealllisteners!(e::Event; once::Union{Bool,Nothing}=nothing)
-    isnothing(once) ? empty!(e.listeners) : deleteat!(e.listeners, [l.once === once for l ∈ e.listeners])
+    once === nothing ? empty!(e.listeners) : deleteat!(e.listeners, [l.once === once for l ∈ e.listeners])
 end
 
 on!(e::Event, cbs::Function...) = addlisteners!(e, cbs...; once=false)
@@ -77,11 +77,11 @@ emit!(dict::AbstractDict{<:Any,Event}, args::Any...) = [e(args...) for e in valu
 emit!(dict::AbstractDict, args::Any...) = [isa(e, Event) ? e(args...) : e for e in values(dict)]
 
 function listenercount(e::Event; once::Union{Bool,Nothing}=nothing)
-    isnothing(once) ? length(e.listeners) : length(filter((l::Listener) -> l.once === once, e.listeners))
+    once === nothing ? length(e.listeners) : length(filter((l::Listener) -> l.once === once, e.listeners))
 end
 
 function getlisteners(e::Event; once::Union{Bool,Nothing}=nothing)
-    isnothing(once) ? e.listeners : filter((l::Listener) -> l.once === once, e.listeners)
+    once === nothing ? e.listeners : filter((l::Listener) -> l.once === once, e.listeners)
 end
 
 end # module
