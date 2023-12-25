@@ -39,10 +39,9 @@ function removelistener!(e::Event, i::Int)
 end
 removelistener!(e::Event) = pop!(e.listeners)
 
-function removealllisteners!(e::Event; once::Bool)
-    deleteat!(e.listeners, [l.once === once for l ∈ e.listeners])
+function removealllisteners!(e::Event; once::Union{Bool,Nothing}=nothing)
+    isnothing(once) ? empty!(e.listeners) : deleteat!(e.listeners, [l.once === once for l ∈ e.listeners])
 end
-removealllisteners!(e::Event) = empty!(e.listeners)
 
 on!(e::Event, cbs::Function...) = addlisteners!(e, cbs...; once=false)
 on!(cb::Function, e::Event) = addlisteners!(e, cb; once=false)
@@ -77,10 +76,12 @@ emit!(nt::NamedTuple, args::Any...) = Tuple(isa(e, Event) ? e(args...) : e for e
 emit!(dict::AbstractDict{<:Any,Event}, args::Any...) = [e(args...) for e in values(dict)]
 emit!(dict::AbstractDict, args::Any...) = [isa(e, Event) ? e(args...) : e for e in values(dict)]
 
-listenercount(e::Event; once::Bool) = length(filter((l::Listener) -> l.once === once, e.listeners))
-listenercount(e::Event) = length(e.listeners)
+function listenercount(e::Event; once::Union{Bool,Nothing}=nothing)
+    isnothing(once) ? length(e.listeners) : length(filter((l::Listener) -> l.once === once, e.listeners))
+end
 
-getlisteners(e::Event; once::Bool) = filter((l::Listener) -> l.once === once, e.listeners)
-getlisteners(e::Event) = e.listeners
+function getlisteners(e::Event; once::Union{Bool,Nothing}=nothing)
+    isnothing(once) ? e.listeners : filter((l::Listener) -> l.once === once, e.listeners)
+end
 
 end # module
