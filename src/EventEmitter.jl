@@ -9,8 +9,8 @@ struct Listener
     once::Bool
 
     Listener(cb::Function, once::Bool=false) = new(cb, once)
-    (l::Listener)(args...) = l.callback(args...)
 end
+(l::Listener)(args...) = l.callback(args...)
 
 struct Event
     listeners::Vector{Listener}
@@ -18,8 +18,8 @@ struct Event
     Event(cbs::Function...; once::Bool=false) = new([Listener(cb, once) for cb ∈ cbs])
     Event(l::Listener...) = new([l...])
     Event() = new([])
-    (e::Event)(args::Any...) = emit!(e, args...)
 end
+(e::Event)(args::Any...) = emit!(e, args...)
 
 addlisteners!(e::Event, l::Listener...) = push!(e.listeners, l...)
 function addlisteners!(e::Event, cbs::Function...; once::Bool=false)
