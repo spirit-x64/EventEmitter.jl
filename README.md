@@ -10,8 +10,8 @@
     <a href="https://julialang.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png" alt="Julia Programming Language Logo" /></a>
   </p>
   <p>
-    <a href="https://discord.gg/fsgRUpK"><img src="https://img.shields.io/discord/726050330068123679?color=000000&logo=discord&logoColor=white" alt="Spirit's discord server" /></a>
-    <a target="_blank" href="https://github.com/8bou3/EventEmitter.jl/actions/workflows/CI.yml?query=branch%3Amain"><img src="https://github.com/8bou3/EventEmitter.jl/actions/workflows/CI.yml/badge.svg?branch=main" alt="Build Status" /></a>
+    <a href="https://discord.gg/cST4tkAMy6"><img src="https://img.shields.io/discord/1266889650987860009?color=060033&logo=discord&logoColor=white" alt="Spirit's discord server" /></a>
+    <a target="_blank" href="https://github.com/spirit-x64/EventEmitter.jl/actions/workflows/CI.yml?query=branch%3Amain"><img src="https://github.com/spirit-x64/EventEmitter.jl/actions/workflows/CI.yml/badge.svg?branch=main" alt="Build Status" /></a>
   </p>
   Julia package to easly implement event pattern in julia
 </div>
