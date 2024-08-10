@@ -1,6 +1,6 @@
 name = "EventEmitter"
 uuid = "eed75e0f-2a47-456c-84f6-69ee3fe4bbf9"
-authors = ["Spirit <i8bou3@gmail.com>"]
+authors = ["Spirit <spirit@programmer.net>"]
 version = "1.0.0"
 repo = "https://github.com/8bou3/EventEmitter.jl.git"
 
