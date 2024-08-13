@@ -7,7 +7,6 @@ on:
       - src/**
       - test/**
       - Project.toml
-    tags: ['*']
   pull_request:
     paths:
       - src/**
